@@ -8,11 +8,20 @@
 plugins {
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+     application
+     id("org.openjfx.javafxplugin") version "0.1.0"
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+}
+
+application {
+    mainClass = "org.example.App"
+}
+javafx {
+    modules("javafx.controls")
 }
 
 dependencies {
