@@ -1,0 +1,105 @@
+@startuml
+skinparam linetype ortho
+left to right direction
+
+package "Parallel Algorithms" {
+    class BFSParallel {
+        -graph: Graph
+        -startNode: Node
+        -queue: ConcurrentLinkedQueue<Node>
+        -visited: ConcurrentHashMap<Node, Boolean>
+        +BFSParallel(Graph, Node): void
+        +call(): Set<Node>
+        -processNeighbors(Node): void
+    }
+
+    class DFSParallel {
+        -graph: Graph
+        -startNode: Node
+        -stack: ConcurrentLinkedDeque<Node>
+        -visited: ConcurrentHashMap<Node, Boolean>
+        +DFSParallel(Graph, Node): void
+        +call(): Set<Node>
+    }
+
+    BFSParallel --> Graph
+    BFSParallel --> Node
+    DFSParallel --> Graph
+    DFSParallel --> Node
+}
+
+package "Main Interface" {
+    class MainUI {
+        -structureChoice: JComboBox<String>
+        -nodeChoice: JComboBox<String>
+        -executionChoice: JComboBox<String>
+        -outputArea: JTextArea
+        -runButton: JButton
+        +main(String[]): void
+        +MainUI(): void
+        +initComponents(): void
+        +addComponentsToFrame(): void
+        +attachEventHandlers(): void
+        +executeAlgorithm(): void
+        +getFileName(String, int): String
+        +executeParallel(String, String): void
+    }
+
+    MainUI ..> BFSParallel : triggers execution of
+    MainUI ..> DFSParallel : triggers execution of
+    MainUI --> BFSParallel : interacts with
+    MainUI --> DFSParallel : interacts with
+    MainUI --> BFSParallel : uses
+    MainUI --> DFSParallel : uses
+    MainUI --> BFSParallel : triggers
+    MainUI --> DFSParallel : triggers
+}
+
+package "GraphExecutor" {
+    class GraphExecutor {
+        +runParallelBFS(ExecutorService, Graph, Node): Future<Set<Node>>
+        +runParallelDFS(ExecutorService, Graph, Node): Future<Set<Node>>
+    }
+
+    GraphExecutor --> Graph : uses
+    GraphExecutor --> Node : uses
+}
+
+package "TreeExecutor" {
+    class TreeExecutor {
+        +runTreeBFS(String, List<Double>, List<Long>): void
+        +runTreeDFS(String, List<Double>, List<Long>): void
+        +runTreeMethods(String, Scanner, int): void
+        +readTreeFromFile(String): TreeNode
+        +convertToDoubleList(List<Long>): List<Double>
+    }
+
+    TreeExecutor --> TreeNode : uses
+    TreeExecutor --> ExcelDataRecorder : writes data
+}
+
+package "Excel and Logging" {
+    class ExcelDataRecorder {
+        -DIRECTORY_PATH: String
+        -workbook: Workbook
+        -sheet: Sheet
+        -rowNum: int
+        +writeData(String, List<Double>, List<Double>, int, boolean, boolean): void
+        -generateFileName(String, boolean): String
+        -getWorkbook(String): Workbook
+        -getSheet(Workbook, boolean): Sheet
+        -initializeHeaderRow(Sheet, boolean): void
+        -writeDataInColumns(List<Double>, List<Double>, int, Row): void
+        -calculateColumnOffset(boolean, int): int
+        -getNextEmptyRow(Sheet, int): int
+        -isRowEmpty(Row, int): boolean
+        -saveWorkbook(Workbook, String): void
+        +writeHeader(Sheet, boolean): void
+    }
+
+    ExcelDataRecorder --> GraphExecutor : logs data
+    ExcelDataRecorder --> TreeExecutor : logs data
+    MyLogger ..> ExcelDataRecorder : logs errors
+}
+
+@enduml
