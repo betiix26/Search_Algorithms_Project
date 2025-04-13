@@ -3,6 +3,9 @@ package executors;
 import sequential.BFSSequential;
 import sequential.DFSSequential;
 import tree_entity.TreeNode;
+import utils.Node;
+import utils.SearchMetrics;
+import utils.SearchResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -32,28 +35,12 @@ public class TreeExecutor {
      * @throws IOException If an error occurs while reading the file.
      */
 	public static void runTreeBFS(String fileName, List<Double> bfsTimes, List<Long> memoryUsage) throws IOException {
-		
-		// Measure memory usage before execution
-		MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
-		MemoryUsage beforeMem = memoryBean.getHeapMemoryUsage();
-		long beforeUsedMem = beforeMem.getUsed();
-
-		// Read the tree from file and execute BFS
-		TreeNode root = readTreeFromFile(fileName);
-		long startTime = System.nanoTime();
-		BFSSequential.treeBFS(root);
-		long endTime = System.nanoTime();
-
-		// Measure memory usage after execution
-		MemoryUsage afterMem = memoryBean.getHeapMemoryUsage();
-		long afterUsedMem = afterMem.getUsed();
-		memoryUsage.add(afterUsedMem - beforeUsedMem);
-		System.out.printf("%nSequential Tree BFS memory usage (bytes): %d%n", afterUsedMem - beforeUsedMem);
-
-		// Calculate and store execution time
-		double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-		System.out.printf("%nTree BFS execution time (iterative): %.9f seconds.%n", durationInSeconds);
-		bfsTimes.add(durationInSeconds);
+	    SearchResult result = runTreeBFSWithMetrics(fileName);
+	    bfsTimes.add(result.getMetrics().getTotalTime() / 1_000_000_000.0);
+	    memoryUsage.add(result.getMetrics().getMemoryUsage());
+	    System.out.printf("%nSequential Tree BFS memory usage (bytes): %d%n", result.getMetrics().getMemoryUsage());
+	    System.out.printf("%nTree BFS execution time (iterative): %.9f seconds.%n", 
+	        result.getMetrics().getTotalTime() / 1_000_000_000.0);
 	}
 
 	/**
@@ -65,28 +52,12 @@ public class TreeExecutor {
      * @throws IOException If an error occurs while reading the file.
      */
 	public static void runTreeDFS(String fileName, List<Double> dfsTimes, List<Long> memoryUsage) throws IOException {
-		
-		// Measure memory usage before execution
-		MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
-		MemoryUsage beforeMem = memoryBean.getHeapMemoryUsage();
-		long beforeUsedMem = beforeMem.getUsed();
-
-		// Read the tree from file and execute DFS
-		TreeNode root = readTreeFromFile(fileName);
-		long startTime = System.nanoTime();
-		DFSSequential.treeDFS(root);
-		long endTime = System.nanoTime();
-
-		// Measure memory usage after execution
-		MemoryUsage afterMem = memoryBean.getHeapMemoryUsage();
-		long afterUsedMem = afterMem.getUsed();
-		memoryUsage.add(afterUsedMem - beforeUsedMem);
-		System.out.printf("%nSequential Tree DFS memory usage (bytes): %d%n", afterUsedMem - beforeUsedMem);
-
-		// Calculate and store execution time
-		double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
-		System.out.printf("%nTree DFS execution time (iterative): %.9f seconds.%n", durationInSeconds);
-		dfsTimes.add(durationInSeconds);
+	    SearchResult result = runTreeDFSWithMetrics(fileName);
+	    dfsTimes.add(result.getMetrics().getTotalTime() / 1_000_000_000.0);
+	    memoryUsage.add(result.getMetrics().getMemoryUsage());
+	    System.out.printf("%nSequential Tree DFS memory usage (bytes): %d%n", result.getMetrics().getMemoryUsage());
+	    System.out.printf("%nTree DFS execution time (iterative): %.9f seconds.%n", 
+	        result.getMetrics().getTotalTime() / 1_000_000_000.0);
 	}
 
 	/**
@@ -127,28 +98,32 @@ public class TreeExecutor {
      * @param nodeCount The number of nodes in the tree.
      */
 	public static void runTreeMethods(String fileName, Scanner scanner, int nodeCount) {
-		List<Double> bfsTreeTimes = new ArrayList<>();
-		List<Double> dfsTreeTimes = new ArrayList<>();
-		List<Long> bfsTreeMemoryUsage = new ArrayList<>();
-		List<Long> dfsTreeMemoryUsage = new ArrayList<>();
-
-		try {
-			runTreeBFS(fileName, bfsTreeTimes, bfsTreeMemoryUsage);
-			runTreeDFS(fileName, dfsTreeTimes, dfsTreeMemoryUsage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			// Save execution times to Excel
-			ExcelDataRecorder.writeData("SequentialExecutionTimes.xlsx", bfsTreeTimes, dfsTreeTimes, nodeCount, true, true);
-			
-			// Save memory usage data to Excel (converted to Double)
-			ExcelDataRecorder.writeData("SequentialMemoryUsage.xlsx", convertToDoubleList(bfsTreeMemoryUsage),
-					convertToDoubleList(dfsTreeMemoryUsage), nodeCount, false, true);
-		} catch (IOException e) {
-			LOGGER.severe("Failed to write tree execution times to Excel for " + nodeCount + " nodes.");
-		}
+	    try {
+	        // Folosim noile metode care returnează SearchResult
+	        SearchResult[] results = runTreeMethodsWithMetrics(fileName);
+	        
+	        // Păstrăm și vechile metode pentru compatibilitate
+	        List<Double> bfsTreeTimes = new ArrayList<>();
+	        List<Double> dfsTreeTimes = new ArrayList<>();
+	        List<Long> bfsTreeMemoryUsage = new ArrayList<>();
+	        List<Long> dfsTreeMemoryUsage = new ArrayList<>();
+	        
+	        runTreeBFS(fileName, bfsTreeTimes, bfsTreeMemoryUsage);
+	        runTreeDFS(fileName, dfsTreeTimes, dfsTreeMemoryUsage);
+	        printComparison(results[0].getMetrics(), results[1].getMetrics());
+	        
+	        // Salvăm în Excel atât datele vechi cât și noile metrici
+	        ExcelDataRecorder.writeData("SequentialExecutionTimes.xlsx", bfsTreeTimes, dfsTreeTimes, nodeCount, true, true);
+	        ExcelDataRecorder.writeData("SequentialMemoryUsage.xlsx", convertToDoubleList(bfsTreeMemoryUsage),
+	                convertToDoubleList(dfsTreeMemoryUsage), nodeCount, false, true);
+	        
+	        // Salvăm și noile rezultate complete
+	        ExcelDataRecorder.writeMetricsData("TreeMetrics.xlsx", results, nodeCount);
+	        
+	    } catch (IOException e) {
+	        LOGGER.severe("Error executing tree methods: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
 
 	/**
@@ -164,4 +139,130 @@ public class TreeExecutor {
 		}
 		return doubleList;
 	}
+	
+	public static SearchResult runTreeBFSWithMetrics(String fileName) throws IOException {
+	    long startTime = System.nanoTime();
+	    MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+	    MemoryUsage beforeMem = memoryBean.getHeapMemoryUsage();
+	    
+	    TreeNode root = readTreeFromFile(fileName);
+	    Set<Node> visitedNodes = new HashSet<>(); 
+	    int nodesProcessed = 0;
+	    
+	    Queue<TreeNode> queue = new LinkedList<>();
+	    if (root != null) {
+	        queue.add(root);
+	    }
+	    
+	    while (!queue.isEmpty()) {
+	        TreeNode currentNode = queue.poll();
+	        visitedNodes.add(new Node(currentNode.getValue())); 
+	        nodesProcessed++;
+	        
+	        for (TreeNode child : currentNode.getChildren()) {
+	            queue.add(child);
+	        }
+	    }
+	    
+	    long endTime = System.nanoTime();
+	    MemoryUsage afterMem = memoryBean.getHeapMemoryUsage();
+	    
+	    return new SearchResult(
+	        visitedNodes,
+	        new SearchMetrics(
+	            endTime - startTime,
+	            endTime - startTime,
+	            0,
+	            afterMem.getUsed() - beforeMem.getUsed(),
+	            "Tree BFS",
+	            false,
+	            nodesProcessed
+	        )
+	    );
+	}
+
+	public static SearchResult runTreeDFSWithMetrics(String fileName) throws IOException {
+	    long startTime = System.nanoTime();
+	    MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+	    MemoryUsage beforeMem = memoryBean.getHeapMemoryUsage();
+	    
+	    TreeNode root = readTreeFromFile(fileName);
+	    Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+	    int nodesProcessed = 0;
+	    
+	    Deque<TreeNode> stack = new ArrayDeque<>();
+	    if (root != null) {
+	        stack.push(root);
+	    }
+	    
+	    while (!stack.isEmpty()) {
+	        TreeNode currentNode = stack.pop();
+	        if (!visitedNodes.contains(new Node(currentNode.getValue()))) {
+	            visitedNodes.add(new Node(currentNode.getValue())); // Creăm Node din valoarea TreeNode
+	            nodesProcessed++;
+	            
+	            // Push children in reverse order for DFS
+	            for (int i = currentNode.getChildren().size() - 1; i >= 0; i--) {
+	                stack.push(currentNode.getChildren().get(i));
+	            }
+	        }
+	    }
+	    
+	    long endTime = System.nanoTime();
+	    MemoryUsage afterMem = memoryBean.getHeapMemoryUsage();
+	    
+	    return new SearchResult(
+	        visitedNodes,
+	        new SearchMetrics(
+	            endTime - startTime,
+	            endTime - startTime,
+	            0,
+	            afterMem.getUsed() - beforeMem.getUsed(),
+	            "Tree DFS",
+	            false,
+	            nodesProcessed
+	        )
+	    );
+	}
+    public static SearchResult[] runTreeMethodsWithMetrics(String fileName) throws IOException {
+        SearchResult bfsResult = runTreeBFSWithMetrics(fileName);
+        SearchResult dfsResult = runTreeDFSWithMetrics(fileName);
+        
+        bfsResult.getMetrics().printMetrics();
+        dfsResult.getMetrics().printMetrics();
+        
+        printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
+        
+        return new SearchResult[]{bfsResult, dfsResult};
+    }
+    private static Set<Node> convertTreeNodesToNodes(Set<TreeNode> treeNodes) {
+        Set<Node> nodes = new HashSet<>();
+        for (TreeNode treeNode : treeNodes) {
+            nodes.add(new Node(treeNode.getValue()));
+        }
+        return nodes;
+    }
+    
+    private static void printComparison(SearchMetrics bfs, SearchMetrics dfs) {
+        System.out.println("\n===== BFS vs DFS Comparison =====");
+        System.out.printf("Total time ratio: %.2f (BFS/DFS)\n",
+                (double) bfs.getTotalTime() / dfs.getTotalTime());
+
+        if (bfs.isParallel() || dfs.isParallel()) {
+            System.out.printf("BFS Computation/Communication ratio: %.2f\n",
+                    (double) bfs.getComputationTime() / Math.max(1, bfs.getCommunicationTime()));
+            System.out.printf("DFS Computation/Communication ratio: %.2f\n",
+                    (double) dfs.getComputationTime() / Math.max(1, dfs.getCommunicationTime()));
+
+            System.out.println("\nParallel Efficiency Analysis:");
+            System.out.printf("BFS Communication overhead: %.2f%%\n",
+                    (bfs.getCommunicationTime() * 100.0 / bfs.getTotalTime()));
+            System.out.printf("DFS Communication overhead: %.2f%%\n",
+                    (dfs.getCommunicationTime() * 100.0 / dfs.getTotalTime()));
+        } else {
+            System.out.println("Sequential execution - no communication overhead");
+        }
+    }
+
+    
 }

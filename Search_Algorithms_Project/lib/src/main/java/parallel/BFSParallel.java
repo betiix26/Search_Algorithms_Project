@@ -9,12 +9,14 @@ import java.util.logging.Level;
 import graph_entity.Graph;
 import utils.MyLogger;
 import utils.Node;
+import utils.SearchMetrics;
+import utils.SearchResult;
 
 /**
  * A parallel implementation of Breadth-First Search (BFS) on a graph.
  * This class processes the graph in parallel using multiple threads.
  */
-public class BFSParallel implements Callable<Set<Node>> {
+public class BFSParallel implements Callable<SearchResult> {
 	
 	// The graph to traverse
     private final Graph graph; 
@@ -28,6 +30,9 @@ public class BFSParallel implements Callable<Set<Node>> {
     // HashMap to track visited nodes
     private final ConcurrentHashMap<Node, Boolean> visited = new ConcurrentHashMap<>(); 
 
+    private long computationTime = 0;
+    private long communicationTime = 0;
+    
     /**
      * Constructor to initialize BFS with the graph and the start node.
      *
@@ -39,30 +44,6 @@ public class BFSParallel implements Callable<Set<Node>> {
         this.startNode = startNode;
         this.queue.add(startNode); // Add the start node to the queue
         this.visited.put(startNode, true); // Mark the start node as visited
-    }
-
-    /**
-     * The call method is executed by the thread and performs the BFS traversal.
-     * 
-     * @return A set of visited nodes.
-     */
-    @Override
-    public Set<Node> call() {
-        try {
-            // Continue processing as long as there are nodes in the queue
-            while (!queue.isEmpty()) {
-                Node currentNode = queue.poll();
-                if (currentNode == null) continue; // Skip if no node is available
-
-                // Process the neighbors of the current node
-                processNeighbors(currentNode);
-            }
-        } catch (Exception e) {
-            // Log any errors that occur during the BFS process
-            MyLogger.log(Level.SEVERE, "An error occurred during Graph BFS: " + e.getMessage());
-        }
-        // Return the set of visited nodes
-        return visited.keySet();
     }
 
     /**
@@ -85,4 +66,45 @@ public class BFSParallel implements Callable<Set<Node>> {
             MyLogger.log(Level.SEVERE, "Failed to process neighbors for node " + currentNode.getId() + ": " + e.getMessage());
         }
     }
+    
+    @Override
+    public SearchResult call() {
+        long startTime = System.nanoTime();
+        long computationTime = 0;
+        long communicationTime = 0;
+        int nodesProcessed = 0;
+
+        try {
+            while (!queue.isEmpty()) {
+                // Faza de calcul
+                long computeStart = System.nanoTime();
+                Node currentNode = queue.poll();
+                if (currentNode == null) continue;
+                
+                nodesProcessed++;
+                processNeighbors(currentNode);
+                computationTime += System.nanoTime() - computeStart;
+                
+                // Faza de comunicare
+                long commStart = System.nanoTime();
+                // Sincronizare implicită
+                communicationTime += System.nanoTime() - commStart;
+            }
+        } catch (Exception e) {
+            MyLogger.log(Level.SEVERE, "BFS error: " + e.getMessage());
+        }
+        
+        long totalTime = System.nanoTime() - startTime;
+        SearchMetrics metrics = new SearchMetrics(totalTime, computationTime, communicationTime,
+                               measureMemoryUsage(), "BFS", true, nodesProcessed);
+        
+        return new SearchResult(visited.keySet(), metrics);
+    }
+    
+    private long measureMemoryUsage() {
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
 }

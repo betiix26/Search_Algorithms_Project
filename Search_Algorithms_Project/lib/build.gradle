@@ -23,6 +23,10 @@ dependencies {
     // JavaFX dependencies
     implementation 'org.openjfx:javafx-controls:21'
     implementation 'org.openjfx:javafx-fxml:21'
+    
+    implementation 'org.jfree:jfreechart:1.5.3'
+    implementation 'org.jfree:jcommon:1.0.24'
+    implementation 'com.formdev:flatlaf:2.6'
 }
 
 application {

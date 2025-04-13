@@ -1,12 +1,18 @@
 package sequential;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import tree_entity.TreeNode;
+import utils.Node;
+import utils.SearchMetrics;
+import utils.SearchResult;
 
 /**
  * A utility class that provides sequential implementations of Depth-First Search (DFS)
@@ -81,5 +87,94 @@ public class DFSSequential {
                 stack.push(currentNode.getChildren().get(i));
             }
         }
+    }
+    
+    public static SearchResult graphDFSWithMetrics(List<List<Integer>> adj, int s) {
+        long startTime = System.nanoTime();
+        long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        int nodesProcessed = 0;
+
+        if (adj == null || adj.isEmpty() || s < 0 || s >= adj.size()) {
+            return new SearchResult(Collections.emptySet(),
+                new SearchMetrics(0, 0, 0, 0, "DFS", false, 0));
+        }
+
+        Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+        boolean[] visited = new boolean[adj.size()];
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        stack.push(s);
+
+        while (!stack.isEmpty()) {
+            int u = stack.pop();
+            
+            if (!visited[u]) {
+                visited[u] = true;
+                nodesProcessed++;
+                visitedNodes.add(new Node(u)); // Creăm obiect Node din integer
+                
+                for (int i = adj.get(u).size() - 1; i >= 0; i--) {
+                    int v = adj.get(u).get(i);
+                    if (!visited[v]) {
+                        stack.push(v);
+                    }
+                }
+            }
+        }
+
+        long endTime = System.nanoTime();
+        long memoryAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        
+        return new SearchResult(
+            visitedNodes,
+            new SearchMetrics(
+                endTime - startTime,
+                endTime - startTime,
+                0,
+                memoryAfter - memoryBefore,
+                "DFS",
+                false,
+                nodesProcessed
+            )
+        );
+    }
+    
+    public static SearchResult treeDFSWithMetrics(TreeNode root) {
+        long startTime = System.nanoTime();
+        long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        int nodesProcessed = 0;
+        
+        Set<Node> visitedNodes = new HashSet<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        
+        if (root != null) {
+            stack.push(root);
+        }
+
+        while (!stack.isEmpty()) {
+            TreeNode currentNode = stack.pop();
+            visitedNodes.add(new Node(currentNode.getValue()));
+            nodesProcessed++;
+            
+            for (int i = currentNode.getChildren().size() - 1; i >= 0; i--) {
+                stack.push(currentNode.getChildren().get(i));
+            }
+        }
+
+        long endTime = System.nanoTime();
+        long memoryAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        
+        return new SearchResult(
+            visitedNodes,
+            new SearchMetrics(
+                endTime - startTime,
+                endTime - startTime,
+                0,
+                memoryAfter - memoryBefore,
+                "Tree DFS",
+                false,
+                nodesProcessed
+            )
+        );
     }
 }

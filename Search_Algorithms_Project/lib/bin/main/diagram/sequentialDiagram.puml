@@ -1,0 +1,120 @@
+@startuml
+skinparam linetype ortho
+left to right direction
+
+package "Sequential Algorithms" {
+    class BFSSequential {
+        +graphBFS(List<List<Integer>>, int): void
+        +treeBFS(TreeNode): void
+    }
+
+    class DFSSequential {
+        +graphDFS(List<List<Integer>>, int): void
+        +treeDFS(TreeNode): void
+    }
+
+    BFSSequential ..> GraphExecutor : used by
+    DFSSequential ..> GraphExecutor : used by
+}
+
+package "Tree" {
+    class TreeNode {
+        -value: int
+        -children: ArrayList<TreeNode>
+        +TreeNode(int): void
+        +addChild(TreeNode): void
+        +getValue(): int
+        +getChildren(): ArrayList<TreeNode>
+    }
+
+    class TreeGenerator {
+        +generateTree(int, String): void
+    }
+
+    class TreeExecutor {
+        +runTreeBFS(String, List<Double>, List<Long>): void
+        +runTreeDFS(String, List<Double>, List<Long>): void
+        +runTreeMethods(String, Scanner, int): void
+        +readTreeFromFile(String): TreeNode
+        +convertToDoubleList(List<Long>): List<Double>
+    }
+
+    TreeNode ..> TreeExecutor : used by
+    TreeGenerator ..> TreeNode : generates
+    TreeGenerator --> MyLogger : logs actions
+}
+
+package "Excel and Logging" {
+    class ExcelDataRecorder {
+        -DIRECTORY_PATH: String
+        +writeData(String, List<Double>, List<Double>, int, boolean, boolean): void
+        -generateFileName(String, boolean): String
+        -getWorkbook(String): Workbook
+        -getSheet(Workbook, boolean): Sheet
+        -initializeHeaderRow(Sheet, boolean): void
+        -writeDataInColumns(List<Double>, List<Double>, int, Row): void
+        -calculateColumnOffset(boolean, int): int
+        -getNextEmptyRow(Sheet, int): int
+        -isRowEmpty(Row, int): boolean
+        -saveWorkbook(Workbook, String): void
+        +writeHeader(Sheet, boolean): void
+    }
+
+    class MyLogger {
+        -LOGGER: Logger
+        +log(Level, String): void
+    }
+
+    ExcelDataRecorder ..> GraphExecutor : logs data
+    ExcelDataRecorder ..> TreeExecutor : logs data
+    MyLogger ..> Graph : logs actions
+    MyLogger ..> Node : logs actions
+    MyLogger ..> ExcelDataRecorder : logs errors
+}
+
+package "Main Interface" {
+    class MainUI {
+        -structureChoice: JComboBox<String>
+        -nodeChoice: JComboBox<String>
+        -executionChoice: JComboBox<String>
+        -outputArea: JTextArea
+        -runButton: JButton
+        +main(String[]): void
+        +MainUI(): void
+        +initComponents(): void
+        +addComponentsToFrame(): void
+        +attachEventHandlers(): void
+        +executeAlgorithm(): void
+        +getFileName(String, int): String
+        +executeSequential(String, String, int): void
+        +executeParallel(String, String): void
+    }
+
+    MainUI ..> GraphExecutor : triggers execution of
+    MainUI ..> TreeExecutor : triggers execution of
+    MainUI ..> GraphExecutor : interacts with
+    MainUI ..> TreeExecutor : interacts with
+    MainUI --> GraphExecutor : uses
+    MainUI --> TreeExecutor : uses
+    MainUI --> GraphExecutor : triggers
+    MainUI --> TreeExecutor : triggers
+}
+
+' Relationships between GraphExecutor and the algorithms
+package "GraphExecutor" {
+    class GraphExecutor {
+        +runSequentialBFS(String, int, List<Double>, List<Double>): void
+        +runSequentialDFS(String, int, List<Double>, List<Double>): void
+        +runSequentialMethods(String, int, int): void
+        +runParallelMethods(String, int): void
+        -printNodeAndNeighbors(Graph, Node): void
+        -printExecutionTime(long, long): void
+        -convertListToGraph(List<List<Integer>>): Graph
+        -runParallelBFS(ExecutorService, Graph, Node): Future<Set<Node>>
+        -runParallelDFS(ExecutorService, Graph, Node): Future<Set<Node>>
+    }
+
+    GraphExecutor --> Graph : uses
+    GraphExecutor --> Node : uses
+}
+@enduml

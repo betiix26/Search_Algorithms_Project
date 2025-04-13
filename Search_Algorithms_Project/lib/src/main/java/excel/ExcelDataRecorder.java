@@ -3,6 +3,9 @@ package excel;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import utils.SearchMetrics;
+import utils.SearchResult;
+
 import java.io.*;
 import java.nio.file.*;
 import java.util.List;
@@ -167,6 +170,41 @@ public class ExcelDataRecorder {
     private static void saveWorkbook(Workbook workbook, String filePath) throws IOException {
         try (OutputStream outputStream = Files.newOutputStream(Paths.get(filePath))) {
             workbook.write(outputStream);
+        }
+    }
+    
+    //code newly added for communication & computation time
+    public static void writeMetricsData(String fileName, SearchResult[] results, int nodeCount) throws IOException {
+        String filePath = Paths.get(DIRECTORY_PATH, fileName).toString();
+        Files.createDirectories(Paths.get(DIRECTORY_PATH));
+
+        try (Workbook workbook = getWorkbook(filePath)) {
+            Sheet sheet = workbook.createSheet("Metrics");
+            
+            // Crează header
+            Row headerRow = sheet.createRow(0);
+            String[] headers = {
+                "Algorithm", "Total Time (ms)", "Computation Time (ms)", 
+                "Communication Time (ms)", "Memory Usage (bytes)", "Nodes Processed"
+            };
+            
+            for (int i = 0; i < headers.length; i++) {
+                headerRow.createCell(i).setCellValue(headers[i]);
+            }
+            
+            for (int i = 0; i < results.length; i++) {
+                SearchMetrics metrics = results[i].getMetrics();
+                Row row = sheet.createRow(i + 1);
+                
+                row.createCell(0).setCellValue(metrics.getAlgorithmType());
+                row.createCell(1).setCellValue(metrics.getTotalTime() / 1_000_000.0);
+                row.createCell(2).setCellValue(metrics.getComputationTime() / 1_000_000.0);
+                row.createCell(3).setCellValue(metrics.getCommunicationTime() / 1_000_000.0);
+                row.createCell(4).setCellValue(metrics.getMemoryUsage());
+                row.createCell(5).setCellValue(metrics.getNodesProcessed());
+            }
+   
+            saveWorkbook(workbook, filePath);
         }
     }
 }

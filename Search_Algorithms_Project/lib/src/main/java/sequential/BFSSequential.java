@@ -1,12 +1,18 @@
 package sequential;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import tree_entity.TreeNode;
+import utils.Node;
+import utils.SearchMetrics;
+import utils.SearchResult;
 
 /**
  * A utility class that provides sequential implementations of Breadth-First Search (BFS)
@@ -78,5 +84,53 @@ public class BFSSequential {
                 queue.add(child);
             }
         }
+    }
+    
+    public static SearchResult graphBFSWithMetrics(List<List<Integer>> adj, int s) {
+        long startTime = System.nanoTime();
+        long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        int nodesProcessed = 0;
+
+        if (adj == null || adj.isEmpty() || s < 0 || s >= adj.size()) {
+            return new SearchResult(Collections.emptySet(), 
+                new SearchMetrics(0, 0, 0, 0, "BFS", false, 0));
+        }
+
+        Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+        boolean[] visited = new boolean[adj.size()];
+        Queue<Integer> queue = new LinkedList<>();
+
+        visited[s] = true;
+        queue.add(s);
+        visitedNodes.add(new Node(s)); // Creăm obiect Node din integer
+
+        while (!queue.isEmpty()) {
+            int u = queue.poll();
+            nodesProcessed++;
+            
+            for (int v : adj.get(u)) {
+                if (!visited[v]) {
+                    visited[v] = true;
+                    queue.add(v);
+                    visitedNodes.add(new Node(v)); // Creăm obiect Node
+                }
+            }
+        }
+
+        long endTime = System.nanoTime();
+        long memoryAfter = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+        
+        return new SearchResult(
+            visitedNodes,
+            new SearchMetrics(
+                endTime - startTime,
+                endTime - startTime,
+                0,
+                memoryAfter - memoryBefore,
+                "BFS",
+                false,
+                nodesProcessed
+            )
+        );
     }
 }
