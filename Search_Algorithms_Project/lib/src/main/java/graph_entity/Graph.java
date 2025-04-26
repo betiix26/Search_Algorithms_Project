@@ -1,5 +1,8 @@
 package graph_entity;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -54,13 +57,18 @@ public class Graph {
     /**
      * Prints the graph in an adjacency list format.
      */
-    public void printGraph() {
-        for (Node node : adjacencyList.keySet()) {
-            System.out.print("Node " + node.getId() + " connects to: ");
-            for (Node connectedNode : getNeighbors(node)) {
-                System.out.print(connectedNode.getId() + " ");
+    public void printGraphToFile(String filePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            for (Node node : adjacencyList.keySet()) {
+                writer.write("Node " + node.getId() + " connects to: ");
+                for (Node connectedNode : getNeighbors(node)) {
+                    writer.write(connectedNode.getId() + " ");
+                }
+                writer.newLine();
             }
-            System.out.println();
+        } catch (IOException e) {
+            MyLogger.log(Level.SEVERE, "Failed to write graph to file: " + e.getMessage());
         }
     }
+
 }

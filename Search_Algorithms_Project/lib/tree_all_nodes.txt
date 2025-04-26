@@ -1,0 +1,1001 @@
+All nodes in tree:
+Node 949 -> 296 59 451 938 913 
+Node 296 -> 238 746 751 167 232 
+Node 59 -> 977 
+Node 451 -> 406 996 405 114 461 
+Node 938 -> 950 26 
+Node 913 -> 524 
+Node 238 -> 906 661 25 648 583 
+Node 746 -> 188 323 443 627 
+Node 751 -> 426 326 908 591 377 
+Node 167 -> 865 
+Node 232 -> 807 926 
+Node 977 -> 
+Node 406 -> 99 255 
+Node 996 -> 665 
+Node 405 -> 667 478 
+Node 114 -> 
+Node 461 -> 
+Node 950 -> 
+Node 26 -> 
+Node 524 -> 
+Node 906 -> 871 134 49 767 38 
+Node 661 -> 173 119 143 681 814 
+Node 25 -> 640 623 2 687 944 248 
+Node 648 -> 
+Node 583 -> 
+Node 188 -> 109 20 
+Node 323 -> 0 952 
+Node 443 -> 708 462 697 
+Node 627 -> 
+Node 426 -> 742 894 674 504 464 346 579 
+Node 326 -> 5 
+Node 908 -> 488 185 
+Node 591 -> 
+Node 377 -> 
+Node 865 -> 718 295 
+Node 807 -> 
+Node 926 -> 
+Node 99 -> 991 653 719 
+Node 255 -> 619 682 
+Node 665 -> 917 
+Node 667 -> 
+Node 478 -> 
+Node 871 -> 84 924 981 
+Node 134 -> 902 605 723 413 213 987 629 
+Node 49 -> 879 
+Node 767 -> 169 757 731 
+Node 38 -> 369 782 
+Node 173 -> 823 526 733 178 404 367 408 
+Node 119 -> 617 768 576 825 381 129 366 893 
+Node 143 -> 77 764 312 
+Node 681 -> 596 
+Node 814 -> 846 
+Node 640 -> 
+Node 623 -> 582 847 
+Node 2 -> 548 
+Node 687 -> 117 207 
+Node 944 -> 984 
+Node 248 -> 816 
+Node 109 -> 479 527 340 826 778 74 
+Node 20 -> 
+Node 0 -> 976 995 666 
+Node 952 -> 92 
+Node 708 -> 480 45 
+Node 462 -> 
+Node 697 -> 
+Node 742 -> 756 916 643 
+Node 894 -> 990 678 685 
+Node 674 -> 820 840 62 
+Node 504 -> 184 492 120 30 262 
+Node 464 -> 
+Node 346 -> 
+Node 579 -> 673 
+Node 5 -> 
+Node 488 -> 198 625 
+Node 185 -> 663 472 
+Node 718 -> 28 853 
+Node 295 -> 
+Node 991 -> 
+Node 653 -> 613 
+Node 719 -> 
+Node 619 -> 
+Node 682 -> 
+Node 917 -> 
+Node 84 -> 911 
+Node 924 -> 621 
+Node 981 -> 217 822 
+Node 902 -> 813 580 
+Node 605 -> 684 267 
+Node 723 -> 790 958 
+Node 413 -> 
+Node 213 -> 518 656 
+Node 987 -> 
+Node 629 -> 
+Node 879 -> 
+Node 169 -> 973 
+Node 757 -> 319 328 864 
+Node 731 -> 
+Node 369 -> 809 
+Node 782 -> 379 
+Node 823 -> 982 638 522 649 508 334 
+Node 526 -> 735 528 467 358 700 
+Node 733 -> 122 791 765 
+Node 178 -> 63 
+Node 404 -> 202 338 
+Node 367 -> 
+Node 408 -> 935 
+Node 617 -> 313 229 403 
+Node 768 -> 113 771 35 
+Node 576 -> 821 121 
+Node 825 -> 920 806 607 128 
+Node 381 -> 
+Node 129 -> 131 
+Node 366 -> 877 
+Node 893 -> 
+Node 77 -> 561 234 491 152 540 210 106 
+Node 764 -> 214 138 758 772 748 
+Node 312 -> 251 
+Node 596 -> 
+Node 846 -> 
+Node 582 -> 705 
+Node 847 -> 
+Node 548 -> 
+Node 117 -> 
+Node 207 -> 
+Node 984 -> 
+Node 816 -> 
+Node 479 -> 172 959 659 706 575 
+Node 527 -> 345 612 302 339 
+Node 340 -> 259 
+Node 826 -> 89 397 858 417 
+Node 778 -> 610 923 
+Node 74 -> 
+Node 976 -> 
+Node 995 -> 
+Node 666 -> 
+Node 92 -> 420 
+Node 480 -> 
+Node 45 -> 
+Node 756 -> 333 177 954 832 
+Node 916 -> 140 717 780 
+Node 643 -> 272 934 946 892 219 
+Node 990 -> 725 
+Node 678 -> 679 287 
+Node 685 -> 
+Node 820 -> 160 
+Node 840 -> 
+Node 62 -> 720 
+Node 184 -> 789 
+Node 492 -> 27 273 
+Node 120 -> 165 
+Node 30 -> 599 
+Node 262 -> 141 699 654 
+Node 673 -> 
+Node 198 -> 
+Node 625 -> 
+Node 663 -> 
+Node 472 -> 
+Node 28 -> 
+Node 853 -> 
+Node 613 -> 
+Node 911 -> 986 24 386 
+Node 621 -> 584 
+Node 217 -> 269 
+Node 822 -> 
+Node 813 -> 862 
+Node 580 -> 
+Node 684 -> 606 774 859 
+Node 267 -> 
+Node 790 -> 365 53 470 
+Node 958 -> 
+Node 518 -> 797 322 
+Node 656 -> 
+Node 973 -> 914 
+Node 319 -> 363 
+Node 328 -> 
+Node 864 -> 243 
+Node 809 -> 
+Node 379 -> 
+Node 982 -> 268 336 146 235 637 
+Node 638 -> 155 294 974 818 
+Node 522 -> 
+Node 649 -> 868 
+Node 508 -> 639 
+Node 334 -> 
+Node 735 -> 904 775 736 57 
+Node 528 -> 247 
+Node 467 -> 
+Node 358 -> 880 309 887 
+Node 700 -> 563 
+Node 122 -> 589 850 
+Node 791 -> 695 
+Node 765 -> 521 
+Node 63 -> 292 543 446 
+Node 202 -> 713 180 947 
+Node 338 -> 473 737 
+Node 935 -> 372 215 142 
+Node 313 -> 3 327 
+Node 229 -> 15 435 536 844 
+Node 403 -> 962 743 
+Node 113 -> 471 523 95 992 
+Node 771 -> 391 482 
+Node 35 -> 90 
+Node 821 -> 137 
+Node 121 -> 
+Node 920 -> 388 
+Node 806 -> 554 
+Node 607 -> 
+Node 128 -> 
+Node 131 -> 
+Node 877 -> 863 412 
+Node 561 -> 532 
+Node 234 -> 547 922 252 196 
+Node 491 -> 500 838 
+Node 152 -> 568 545 
+Node 540 -> 212 197 204 994 
+Node 210 -> 
+Node 106 -> 608 
+Node 214 -> 93 833 783 
+Node 138 -> 69 972 867 416 529 227 102 
+Node 758 -> 927 231 975 
+Node 772 -> 692 
+Node 748 -> 
+Node 251 -> 784 23 187 311 
+Node 705 -> 
+Node 172 -> 486 44 58 
+Node 959 -> 237 961 571 
+Node 659 -> 538 
+Node 706 -> 271 559 
+Node 575 -> 
+Node 345 -> 192 384 903 
+Node 612 -> 792 68 424 
+Node 302 -> 64 
+Node 339 -> 
+Node 259 -> 602 
+Node 89 -> 452 
+Node 397 -> 
+Node 858 -> 
+Node 417 -> 933 
+Node 610 -> 
+Node 923 -> 
+Node 420 -> 306 
+Node 333 -> 353 886 324 773 
+Node 177 -> 201 939 622 
+Node 954 -> 
+Node 832 -> 
+Node 140 -> 469 
+Node 717 -> 562 511 
+Node 780 -> 298 
+Node 272 -> 
+Node 934 -> 
+Node 946 -> 387 
+Node 892 -> 11 
+Node 219 -> 
+Node 725 -> 350 
+Node 679 -> 
+Node 287 -> 
+Node 160 -> 907 325 
+Node 720 -> 
+Node 789 -> 
+Node 27 -> 226 552 
+Node 273 -> 
+Node 165 -> 
+Node 599 -> 
+Node 141 -> 556 
+Node 699 -> 
+Node 654 -> 
+Node 986 -> 
+Node 24 -> 438 
+Node 386 -> 928 644 
+Node 584 -> 983 
+Node 269 -> 572 
+Node 862 -> 
+Node 606 -> 620 918 
+Node 774 -> 
+Node 859 -> 199 
+Node 365 -> 158 
+Node 53 -> 577 
+Node 470 -> 
+Node 797 -> 246 
+Node 322 -> 
+Node 914 -> 
+Node 363 -> 
+Node 243 -> 957 437 
+Node 268 -> 496 91 910 317 
+Node 336 -> 570 
+Node 146 -> 225 689 
+Node 235 -> 831 
+Node 637 -> 
+Node 155 -> 726 
+Node 294 -> 655 86 427 721 56 804 153 
+Node 974 -> 989 321 755 
+Node 818 -> 123 
+Node 868 -> 
+Node 639 -> 124 
+Node 904 -> 633 395 
+Node 775 -> 
+Node 736 -> 
+Node 57 -> 
+Node 247 -> 
+Node 880 -> 61 
+Node 309 -> 
+Node 887 -> 
+Node 563 -> 
+Node 589 -> 156 
+Node 850 -> 566 
+Node 695 -> 394 
+Node 521 -> 
+Node 292 -> 
+Node 543 -> 565 
+Node 446 -> 
+Node 713 -> 355 463 
+Node 180 -> 281 
+Node 947 -> 
+Node 473 -> 19 
+Node 737 -> 151 277 668 257 
+Node 372 -> 872 
+Node 215 -> 
+Node 142 -> 
+Node 3 -> 307 848 18 594 450 
+Node 327 -> 549 609 385 453 
+Node 15 -> 662 
+Node 435 -> 691 
+Node 536 -> 
+Node 844 -> 
+Node 962 -> 
+Node 743 -> 855 
+Node 471 -> 999 
+Node 523 -> 505 50 740 360 875 
+Node 95 -> 592 222 289 
+Node 992 -> 779 636 125 951 803 
+Node 391 -> 335 956 509 
+Node 482 -> 8 
+Node 90 -> 
+Node 137 -> 425 308 531 456 
+Node 388 -> 885 
+Node 554 -> 
+Node 863 -> 558 
+Node 412 -> 
+Node 532 -> 428 
+Node 547 -> 442 
+Node 922 -> 581 
+Node 252 -> 
+Node 196 -> 87 
+Node 500 -> 506 341 
+Node 838 -> 
+Node 568 -> 
+Node 545 -> 239 
+Node 212 -> 593 
+Node 197 -> 670 
+Node 204 -> 46 127 
+Node 994 -> 
+Node 608 -> 483 
+Node 93 -> 966 474 183 415 
+Node 833 -> 985 
+Node 783 -> 
+Node 69 -> 968 734 
+Node 972 -> 
+Node 867 -> 331 163 
+Node 416 -> 485 
+Node 529 -> 
+Node 227 -> 
+Node 102 -> 
+Node 927 -> 828 943 
+Node 231 -> 588 216 
+Node 975 -> 
+Node 692 -> 
+Node 784 -> 
+Node 23 -> 
+Node 187 -> 
+Node 311 -> 753 
+Node 486 -> 364 314 457 
+Node 44 -> 
+Node 58 -> 
+Node 237 -> 171 
+Node 961 -> 40 
+Node 571 -> 270 
+Node 538 -> 
+Node 271 -> 76 
+Node 559 -> 
+Node 192 -> 
+Node 384 -> 205 166 
+Node 903 -> 970 
+Node 792 -> 431 
+Node 68 -> 157 
+Node 424 -> 493 929 
+Node 64 -> 401 
+Node 602 -> 444 
+Node 452 -> 
+Node 933 -> 
+Node 306 -> 
+Node 353 -> 881 965 
+Node 886 -> 
+Node 324 -> 
+Node 773 -> 
+Node 201 -> 445 510 
+Node 939 -> 
+Node 622 -> 
+Node 469 -> 221 392 
+Node 562 -> 459 
+Node 511 -> 
+Node 298 -> 278 
+Node 387 -> 
+Node 11 -> 
+Node 350 -> 301 641 
+Node 907 -> 211 
+Node 325 -> 
+Node 226 -> 241 
+Node 552 -> 
+Node 556 -> 
+Node 438 -> 
+Node 928 -> 398 
+Node 644 -> 
+Node 983 -> 
+Node 572 -> 
+Node 620 -> 
+Node 918 -> 
+Node 199 -> 400 
+Node 158 -> 
+Node 577 -> 603 
+Node 246 -> 
+Node 957 -> 
+Node 437 -> 
+Node 496 -> 
+Node 91 -> 
+Node 910 -> 
+Node 317 -> 
+Node 570 -> 
+Node 225 -> 729 647 487 777 652 
+Node 689 -> 
+Node 831 -> 448 
+Node 726 -> 107 628 422 
+Node 655 -> 154 835 
+Node 86 -> 836 22 347 34 318 827 
+Node 427 -> 240 
+Node 721 -> 544 
+Node 56 -> 362 423 
+Node 804 -> 
+Node 153 -> 
+Node 989 -> 288 409 383 
+Node 321 -> 71 116 
+Node 755 -> 
+Node 123 -> 
+Node 124 -> 
+Node 633 -> 
+Node 395 -> 
+Node 61 -> 
+Node 156 -> 
+Node 566 -> 
+Node 394 -> 280 
+Node 565 -> 
+Node 355 -> 
+Node 463 -> 
+Node 281 -> 535 223 
+Node 19 -> 32 
+Node 151 -> 669 810 600 80 
+Node 277 -> 
+Node 668 -> 
+Node 257 -> 
+Node 872 -> 161 
+Node 307 -> 393 304 
+Node 848 -> 953 817 
+Node 18 -> 799 
+Node 594 -> 843 
+Node 450 -> 
+Node 549 -> 348 
+Node 609 -> 834 890 490 489 
+Node 385 -> 690 
+Node 453 -> 794 
+Node 662 -> 
+Node 691 -> 432 664 
+Node 855 -> 
+Node 999 -> 798 940 530 148 642 
+Node 505 -> 465 349 260 
+Node 50 -> 344 658 998 303 945 
+Node 740 -> 
+Node 360 -> 980 343 
+Node 875 -> 
+Node 592 -> 228 
+Node 222 -> 149 800 
+Node 289 -> 
+Node 779 -> 702 7 
+Node 636 -> 
+Node 125 -> 
+Node 951 -> 
+Node 803 -> 
+Node 335 -> 686 285 310 808 168 
+Node 956 -> 402 147 525 
+Node 509 -> 
+Node 8 -> 
+Node 425 -> 244 100 501 967 
+Node 308 -> 932 72 564 39 356 
+Node 531 -> 337 
+Node 456 -> 481 
+Node 885 -> 407 
+Node 558 -> 
+Node 428 -> 537 635 189 812 
+Node 442 -> 
+Node 581 -> 
+Node 87 -> 
+Node 506 -> 10 
+Node 341 -> 707 
+Node 239 -> 
+Node 593 -> 208 
+Node 670 -> 
+Node 46 -> 441 
+Node 127 -> 
+Node 483 -> 
+Node 966 -> 176 884 164 85 
+Node 474 -> 
+Node 183 -> 13 
+Node 415 -> 286 
+Node 985 -> 67 
+Node 968 -> 440 
+Node 734 -> 
+Node 331 -> 174 
+Node 163 -> 
+Node 485 -> 
+Node 828 -> 256 646 
+Node 943 -> 396 284 
+Node 588 -> 
+Node 216 -> 
+Node 753 -> 
+Node 364 -> 912 569 
+Node 314 -> 750 
+Node 457 -> 712 
+Node 171 -> 
+Node 40 -> 
+Node 270 -> 
+Node 76 -> 
+Node 205 -> 
+Node 166 -> 
+Node 970 -> 
+Node 431 -> 728 
+Node 157 -> 29 
+Node 493 -> 
+Node 929 -> 
+Node 401 -> 
+Node 444 -> 497 
+Node 881 -> 766 677 
+Node 965 -> 
+Node 445 -> 
+Node 510 -> 315 
+Node 221 -> 
+Node 392 -> 
+Node 459 -> 276 
+Node 278 -> 
+Node 301 -> 389 
+Node 641 -> 
+Node 211 -> 
+Node 241 -> 
+Node 398 -> 
+Node 400 -> 900 
+Node 603 -> 
+Node 729 -> 48 560 811 
+Node 647 -> 81 930 279 936 
+Node 487 -> 795 305 
+Node 777 -> 
+Node 652 -> 
+Node 448 -> 
+Node 107 -> 200 
+Node 628 -> 
+Node 422 -> 
+Node 154 -> 852 533 657 144 
+Node 835 -> 
+Node 836 -> 332 
+Node 22 -> 650 514 433 
+Node 347 -> 796 860 
+Node 34 -> 224 36 
+Node 318 -> 
+Node 827 -> 
+Node 240 -> 
+Node 544 -> 
+Node 362 -> 683 
+Node 423 -> 354 195 
+Node 288 -> 97 133 693 680 
+Node 409 -> 901 
+Node 383 -> 870 
+Node 71 -> 390 
+Node 116 -> 495 749 
+Node 280 -> 618 449 
+Node 535 -> 
+Node 223 -> 9 
+Node 32 -> 
+Node 669 -> 786 265 
+Node 810 -> 
+Node 600 -> 
+Node 80 -> 
+Node 161 -> 
+Node 393 -> 516 245 
+Node 304 -> 601 330 111 
+Node 953 -> 
+Node 817 -> 
+Node 799 -> 
+Node 843 -> 
+Node 348 -> 
+Node 834 -> 882 494 
+Node 890 -> 
+Node 490 -> 
+Node 489 -> 
+Node 690 -> 186 
+Node 794 -> 
+Node 432 -> 
+Node 664 -> 
+Node 798 -> 418 595 819 82 503 
+Node 940 -> 759 264 52 
+Node 530 -> 411 
+Node 148 -> 
+Node 642 -> 
+Node 465 -> 542 218 101 507 108 
+Node 349 -> 373 300 253 115 
+Node 260 -> 604 
+Node 344 -> 730 159 430 
+Node 658 -> 585 466 17 
+Node 998 -> 254 
+Node 303 -> 993 73 
+Node 945 -> 
+Node 980 -> 
+Node 343 -> 
+Node 228 -> 14 429 
+Node 149 -> 261 103 
+Node 800 -> 520 
+Node 702 -> 802 
+Node 7 -> 
+Node 686 -> 291 460 6 839 829 
+Node 285 -> 727 380 747 436 
+Node 310 -> 
+Node 808 -> 283 
+Node 168 -> 
+Node 402 -> 
+Node 147 -> 
+Node 525 -> 
+Node 244 -> 837 988 898 
+Node 100 -> 698 230 711 861 
+Node 501 -> 
+Node 967 -> 567 
+Node 932 -> 630 541 
+Node 72 -> 574 785 
+Node 564 -> 909 31 
+Node 39 -> 876 
+Node 356 -> 342 854 937 
+Node 337 -> 
+Node 481 -> 
+Node 407 -> 1 
+Node 537 -> 793 
+Node 635 -> 110 
+Node 189 -> 
+Node 812 -> 
+Node 10 -> 118 
+Node 707 -> 761 
+Node 208 -> 866 760 
+Node 441 -> 499 
+Node 176 -> 282 
+Node 884 -> 
+Node 164 -> 
+Node 85 -> 
+Node 13 -> 
+Node 286 -> 
+Node 67 -> 534 
+Node 440 -> 434 
+Node 174 -> 
+Node 256 -> 616 676 
+Node 646 -> 
+Node 396 -> 
+Node 284 -> 136 250 
+Node 912 -> 688 
+Node 569 -> 997 
+Node 750 -> 
+Node 712 -> 
+Node 728 -> 
+Node 29 -> 
+Node 497 -> 
+Node 766 -> 
+Node 677 -> 941 54 170 
+Node 315 -> 
+Node 276 -> 
+Node 389 -> 
+Node 900 -> 738 
+Node 48 -> 715 546 51 
+Node 560 -> 696 
+Node 811 -> 
+Node 81 -> 
+Node 930 -> 960 
+Node 279 -> 704 
+Node 936 -> 320 
+Node 795 -> 
+Node 305 -> 
+Node 200 -> 139 
+Node 852 -> 948 
+Node 533 -> 419 
+Node 657 -> 
+Node 144 -> 
+Node 332 -> 
+Node 650 -> 399 660 745 
+Node 514 -> 
+Node 433 -> 
+Node 796 -> 921 710 624 
+Node 860 -> 716 371 
+Node 224 -> 555 
+Node 36 -> 
+Node 683 -> 776 
+Node 354 -> 
+Node 195 -> 
+Node 97 -> 787 671 
+Node 133 -> 
+Node 693 -> 
+Node 680 -> 
+Node 901 -> 
+Node 870 -> 
+Node 390 -> 150 220 513 
+Node 495 -> 
+Node 749 -> 
+Node 618 -> 
+Node 449 -> 
+Node 9 -> 
+Node 786 -> 41 515 
+Node 265 -> 368 
+Node 516 -> 
+Node 245 -> 376 
+Node 601 -> 70 
+Node 330 -> 
+Node 111 -> 
+Node 882 -> 801 
+Node 494 -> 
+Node 186 -> 
+Node 418 -> 744 43 421 193 
+Node 595 -> 55 
+Node 819 -> 
+Node 82 -> 
+Node 503 -> 
+Node 759 -> 615 
+Node 264 -> 78 
+Node 52 -> 
+Node 411 -> 175 694 
+Node 542 -> 476 551 
+Node 218 -> 96 539 66 60 
+Node 101 -> 632 33 781 
+Node 507 -> 484 
+Node 108 -> 
+Node 373 -> 769 329 359 130 
+Node 300 -> 75 
+Node 253 -> 
+Node 115 -> 763 83 
+Node 604 -> 
+Node 730 -> 
+Node 159 -> 357 
+Node 430 -> 
+Node 585 -> 845 370 
+Node 466 -> 573 672 258 
+Node 17 -> 
+Node 254 -> 614 
+Node 993 -> 145 
+Node 73 -> 
+Node 14 -> 
+Node 429 -> 519 
+Node 261 -> 597 
+Node 103 -> 
+Node 520 -> 
+Node 802 -> 
+Node 291 -> 969 978 
+Node 460 -> 963 
+Node 6 -> 586 631 
+Node 839 -> 
+Node 829 -> 
+Node 727 -> 979 675 
+Node 380 -> 
+Node 747 -> 
+Node 436 -> 
+Node 283 -> 
+Node 837 -> 754 578 
+Node 988 -> 88 645 
+Node 898 -> 
+Node 698 -> 
+Node 230 -> 
+Node 711 -> 
+Node 861 -> 
+Node 567 -> 
+Node 630 -> 770 
+Node 541 -> 
+Node 574 -> 382 
+Node 785 -> 
+Node 909 -> 
+Node 31 -> 
+Node 876 -> 
+Node 342 -> 732 455 
+Node 854 -> 439 
+Node 937 -> 
+Node 1 -> 
+Node 793 -> 724 
+Node 110 -> 722 
+Node 118 -> 
+Node 761 -> 
+Node 866 -> 
+Node 760 -> 
+Node 499 -> 
+Node 282 -> 752 512 
+Node 534 -> 
+Node 434 -> 
+Node 616 -> 181 447 
+Node 676 -> 
+Node 136 -> 
+Node 250 -> 374 
+Node 688 -> 
+Node 997 -> 
+Node 941 -> 
+Node 54 -> 351 
+Node 170 -> 874 
+Node 738 -> 
+Node 715 -> 21 
+Node 546 -> 378 
+Node 51 -> 47 
+Node 696 -> 162 
+Node 960 -> 897 
+Node 704 -> 
+Node 320 -> 206 851 517 
+Node 139 -> 
+Node 948 -> 856 873 
+Node 419 -> 
+Node 399 -> 
+Node 660 -> 899 
+Node 745 -> 
+Node 921 -> 830 
+Node 710 -> 42 65 824 869 
+Node 624 -> 
+Node 716 -> 709 
+Node 371 -> 233 
+Node 555 -> 
+Node 776 -> 
+Node 787 -> 
+Node 671 -> 
+Node 150 -> 634 
+Node 220 -> 182 
+Node 513 -> 
+Node 41 -> 16 
+Node 515 -> 
+Node 368 -> 
+Node 376 -> 
+Node 70 -> 
+Node 801 -> 
+Node 744 -> 
+Node 43 -> 
+Node 421 -> 
+Node 193 -> 
+Node 55 -> 919 
+Node 615 -> 
+Node 78 -> 293 964 788 
+Node 175 -> 
+Node 694 -> 
+Node 476 -> 477 
+Node 551 -> 112 
+Node 96 -> 925 
+Node 539 -> 203 883 
+Node 66 -> 
+Node 60 -> 
+Node 632 -> 
+Node 33 -> 878 179 
+Node 781 -> 942 191 
+Node 484 -> 
+Node 769 -> 266 703 
+Node 329 -> 888 
+Node 359 -> 
+Node 130 -> 
+Node 75 -> 857 
+Node 763 -> 263 651 
+Node 83 -> 
+Node 357 -> 
+Node 845 -> 550 849 
+Node 370 -> 
+Node 573 -> 104 458 
+Node 672 -> 611 
+Node 258 -> 
+Node 614 -> 
+Node 145 -> 
+Node 519 -> 
+Node 597 -> 
+Node 969 -> 
+Node 978 -> 
+Node 963 -> 
+Node 586 -> 
+Node 631 -> 
+Node 979 -> 236 
+Node 675 -> 
+Node 754 -> 502 
+Node 578 -> 
+Node 88 -> 
+Node 645 -> 891 
+Node 770 -> 842 955 
+Node 382 -> 242 841 
+Node 732 -> 626 
+Node 455 -> 
+Node 439 -> 
+Node 724 -> 
+Node 722 -> 
+Node 752 -> 
+Node 512 -> 
+Node 181 -> 815 805 4 762 
+Node 447 -> 
+Node 374 -> 557 
+Node 351 -> 
+Node 874 -> 
+Node 21 -> 
+Node 378 -> 135 
+Node 47 -> 
+Node 162 -> 361 
+Node 897 -> 
+Node 206 -> 
+Node 851 -> 
+Node 517 -> 
+Node 856 -> 598 
+Node 873 -> 
+Node 899 -> 
+Node 830 -> 
+Node 42 -> 714 
+Node 65 -> 741 
+Node 824 -> 931 
+Node 869 -> 
+Node 709 -> 
+Node 233 -> 
+Node 634 -> 475 
+Node 182 -> 
+Node 16 -> 132 
+Node 919 -> 587 
+Node 293 -> 105 190 
+Node 964 -> 915 
+Node 788 -> 
+Node 477 -> 410 
+Node 112 -> 
+Node 925 -> 889 375 
+Node 203 -> 
+Node 883 -> 126 
+Node 878 -> 
+Node 179 -> 
+Node 942 -> 
+Node 191 -> 
+Node 266 -> 98 249 
+Node 703 -> 290 
+Node 888 -> 
+Node 857 -> 739 
+Node 263 -> 498 
+Node 651 -> 
+Node 550 -> 971 895 701 
+Node 849 -> 
+Node 104 -> 194 
+Node 458 -> 316 553 
+Node 611 -> 
+Node 236 -> 209 37 
+Node 502 -> 94 
+Node 891 -> 
+Node 842 -> 905 
+Node 955 -> 
+Node 242 -> 
+Node 841 -> 
+Node 626 -> 
+Node 815 -> 
+Node 805 -> 
+Node 4 -> 
+Node 762 -> 
+Node 557 -> 
+Node 135 -> 12 
+Node 361 -> 
+Node 598 -> 
+Node 714 -> 
+Node 741 -> 
+Node 931 -> 414 79 
+Node 475 -> 454 
+Node 132 -> 
+Node 587 -> 
+Node 105 -> 
+Node 190 -> 590 
+Node 915 -> 
+Node 410 -> 
+Node 889 -> 
+Node 375 -> 
+Node 126 -> 275 
+Node 98 -> 
+Node 249 -> 
+Node 290 -> 
+Node 739 -> 
+Node 498 -> 274 
+Node 971 -> 
+Node 895 -> 
+Node 701 -> 896 
+Node 194 -> 
+Node 316 -> 299 
+Node 553 -> 
+Node 209 -> 
+Node 37 -> 
+Node 94 -> 
+Node 905 -> 
+Node 12 -> 
+Node 414 -> 
+Node 79 -> 
+Node 454 -> 352 
+Node 590 -> 
+Node 275 -> 
+Node 274 -> 
+Node 896 -> 297 
+Node 299 -> 468 
+Node 352 -> 
+Node 297 -> 
+Node 468 -> 

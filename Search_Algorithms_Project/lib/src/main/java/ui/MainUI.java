@@ -12,6 +12,8 @@ import java.io.IOException;
 
 import executors.GraphExecutor;
 import executors.TreeExecutor;
+import tree_entity.TreeGenerator;
+import tree_entity.TreeNode;
 import utils.SearchMetrics;
 import utils.SearchResult;
 
@@ -49,8 +51,20 @@ public class MainUI extends JFrame {
 		initComponents();
 		addComponentsToFrame();
 		attachEventHandlers();
+		generateTestFiles();
 	}
 
+	private void generateTestFiles() {
+	    try {
+	        TreeGenerator.generateConnectedTree(1000, FILE_PATH_TREE_1000);
+	        TreeGenerator.generateConnectedTree(10000, FILE_PATH_TREE_10000);
+	    } catch (IOException e) {
+	        JOptionPane.showMessageDialog(this, 
+	            "Error generating test files: " + e.getMessage(),
+	            "Error", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+	
 	/**
 	 * Initializes the UI components.
 	 */
@@ -143,20 +157,22 @@ public class MainUI extends JFrame {
 	 * @param fileName  The file path for input data.
 	 * @param nodes     The number of nodes.
 	 */
-	/**
-	 * Executes the selected algorithm sequentially.
-	 *
-	 * @param structure The selected data structure (Graph/Tree).
-	 * @param fileName  The file path for input data.
-	 * @param nodes     The number of nodes.
-	 */
 	private void executeSequential(String structure, String fileName, int nodes) {
 	    if ("Graph".equals(structure)) {
 	        try {
-	            SearchResult[] results = GraphExecutor.runSequentialMethodsWithMetrics(fileName, 0);
+	        	
+	        	TreeNode root = TreeExecutor.readTreeFromFile(fileName);
+	            int totalNodes = TreeExecutor.countAllNodes(root);
+	            
+	            if (totalNodes != nodes) {
+	                outputArea.setText("WARNING: Tree has " + totalNodes + 
+	                    " nodes (expected " + nodes + "). Possible disconnected nodes.\n\n");
+	            }
+	            
+	            SearchResult[] results = GraphExecutor.runSequentialMethodsWithMetrics(fileName, 0, nodes);
 	            
 	            StringBuilder sb = new StringBuilder();
-	            sb.append("Graph execution (Sequential) completed.\n\n");
+	            sb.append("Graph execution (Sequential) completed.\n\n").append("Total nodes in tree: ").append(totalNodes).append("\n\n");
 	            
 	            for (SearchResult result : results) {
 	                SearchMetrics metrics = result.getMetrics();

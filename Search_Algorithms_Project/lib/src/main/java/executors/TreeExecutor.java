@@ -9,6 +9,7 @@ import utils.SearchResult;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -68,28 +69,51 @@ public class TreeExecutor {
      * @throws IOException If an error occurs while reading the file.
      */
 	public static TreeNode readTreeFromFile(String fileName) throws IOException {
-		Map<Integer, TreeNode> nodes = new HashMap<>();
+	    Map<Integer, TreeNode> nodes = new HashMap<>();
+	    Set<Integer> childNodes = new HashSet<>();
 
-		try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				String[] parts = line.split(" ");
-				int nodeId = Integer.parseInt(parts[0]);
-				TreeNode node = nodes.computeIfAbsent(nodeId, TreeNode::new);
+	    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+	        String line;
+	        while ((line = reader.readLine()) != null) {
+	            String[] parts = line.split(" ");
+	            int nodeId = Integer.parseInt(parts[0]);
+	            TreeNode node = nodes.computeIfAbsent(nodeId, TreeNode::new);
 
-				// Add child nodes
-				for (int i = 1; i < parts.length; i++) {
-					int childId = Integer.parseInt(parts[i]);
-					TreeNode child = nodes.computeIfAbsent(childId, TreeNode::new);
-					node.addChild(child);
-				}
-			}
-		}
+	            for (int i = 1; i < parts.length; i++) {
+	                int childId = Integer.parseInt(parts[i]);
+	                TreeNode child = nodes.computeIfAbsent(childId, TreeNode::new);
+	                node.addChild(child);
+	                childNodes.add(childId);
+	            }
+	        }
+	    }
 
-		// Assuming node with ID 0 is the root
-		return nodes.get(0);
+	    // Find root nodes (nodes that are not children)
+	    Set<Integer> rootNodes = new HashSet<>(nodes.keySet());
+	    rootNodes.removeAll(childNodes);
+
+//	    System.out.println("Total nodes loaded: " + nodes.size());
+//	    System.out.println("Number of root candidates: " + rootNodes.size());
+	    
+	    if (rootNodes.size() != 1) {
+	        System.err.println("ERROR: The tree is disconnected. It contains " + 
+	                         rootNodes.size() + " separate trees!");
+	        System.err.println("Root candidates: " + rootNodes);
+	    }
+
+	    // Return the first root (usually node 0) or null if no roots found
+	    return rootNodes.isEmpty() ? null : nodes.get(rootNodes.iterator().next());
 	}
-
+	
+	public static int countAllNodes(TreeNode root) {
+	    if (root == null) return 0;
+	    int count = 1;
+	    for (TreeNode child : root.getChildren()) {
+	        count += countAllNodes(child);
+	    }
+	    return count;
+	}
+	
 	/**
      * Runs both BFS and DFS on the tree and stores execution time and memory usage results in an Excel file.
      *
@@ -99,10 +123,8 @@ public class TreeExecutor {
      */
 	public static void runTreeMethods(String fileName, Scanner scanner, int nodeCount) {
 	    try {
-	        // Folosim noile metode care returnează SearchResult
 	        SearchResult[] results = runTreeMethodsWithMetrics(fileName);
 	        
-	        // Păstrăm și vechile metode pentru compatibilitate
 	        List<Double> bfsTreeTimes = new ArrayList<>();
 	        List<Double> dfsTreeTimes = new ArrayList<>();
 	        List<Long> bfsTreeMemoryUsage = new ArrayList<>();
@@ -112,12 +134,10 @@ public class TreeExecutor {
 	        runTreeDFS(fileName, dfsTreeTimes, dfsTreeMemoryUsage);
 	        printComparison(results[0].getMetrics(), results[1].getMetrics());
 	        
-	        // Salvăm în Excel atât datele vechi cât și noile metrici
 	        ExcelDataRecorder.writeData("SequentialExecutionTimes.xlsx", bfsTreeTimes, dfsTreeTimes, nodeCount, true, true);
 	        ExcelDataRecorder.writeData("SequentialMemoryUsage.xlsx", convertToDoubleList(bfsTreeMemoryUsage),
 	                convertToDoubleList(dfsTreeMemoryUsage), nodeCount, false, true);
 	        
-	        // Salvăm și noile rezultate complete
 	        ExcelDataRecorder.writeMetricsData("TreeMetrics.xlsx", results, nodeCount);
 	        
 	    } catch (IOException e) {
@@ -187,7 +207,7 @@ public class TreeExecutor {
 	    MemoryUsage beforeMem = memoryBean.getHeapMemoryUsage();
 	    
 	    TreeNode root = readTreeFromFile(fileName);
-	    Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+	    Set<Node> visitedNodes = new HashSet<>(); 
 	    int nodesProcessed = 0;
 	    
 	    Deque<TreeNode> stack = new ArrayDeque<>();
@@ -198,7 +218,7 @@ public class TreeExecutor {
 	    while (!stack.isEmpty()) {
 	        TreeNode currentNode = stack.pop();
 	        if (!visitedNodes.contains(new Node(currentNode.getValue()))) {
-	            visitedNodes.add(new Node(currentNode.getValue())); // Creăm Node din valoarea TreeNode
+	            visitedNodes.add(new Node(currentNode.getValue())); 
 	            nodesProcessed++;
 	            
 	            // Push children in reverse order for DFS
@@ -224,17 +244,71 @@ public class TreeExecutor {
 	        )
 	    );
 	}
-    public static SearchResult[] runTreeMethodsWithMetrics(String fileName) throws IOException {
-        SearchResult bfsResult = runTreeBFSWithMetrics(fileName);
-        SearchResult dfsResult = runTreeDFSWithMetrics(fileName);
-        
-        bfsResult.getMetrics().printMetrics();
-        dfsResult.getMetrics().printMetrics();
-        
-        printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
-        
-        return new SearchResult[]{bfsResult, dfsResult};
+	public static SearchResult[] runTreeMethodsWithMetrics(String fileName) throws IOException {
+	    TreeNode root = readTreeFromFile(fileName);
+	    int totalNodes = countAllNodes(root);
+	    System.out.println("Total nodes in tree: " + totalNodes);
+
+	    SearchResult bfsResult = runTreeBFSWithMetrics(fileName);
+	    SearchResult dfsResult = runTreeDFSWithMetrics(fileName);
+	    
+	    bfsResult.getMetrics().printMetrics();
+	    dfsResult.getMetrics().printMetrics();
+	    
+	    printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
+	    
+	    printAllNodesToFile(root, "tree_all_nodes.txt");
+	    printTreeStructureToFile(fileName, "tree_structure.txt");
+	    
+	    return new SearchResult[]{bfsResult, dfsResult};
+	}
+	
+	private static void printAllNodesToFile(TreeNode root, String outputFileName) throws IOException {
+	    try (FileWriter writer = new FileWriter(outputFileName)) {
+	        writer.write("All nodes in tree:\n");
+	        Queue<TreeNode> queue = new LinkedList<>();
+	        if (root != null) {
+	            queue.add(root);
+	        }
+	        
+	        while (!queue.isEmpty()) {
+	            TreeNode current = queue.poll();
+	            writer.write("Node " + current.getValue() + " -> ");
+	            
+	            for (TreeNode child : current.getChildren()) {
+	                writer.write(child.getValue() + " ");
+	                queue.add(child);
+	            }
+	            writer.write("\n");
+	        }
+	    }
+	}
+    
+    public static void printTreeStructureToFile(String inputFileName, String outputFileName) throws IOException {
+        TreeNode root = readTreeFromFile(inputFileName);
+        try (FileWriter writer = new FileWriter(outputFileName)) {
+            writer.write("Tree Structure:\n");
+            printTreeStructure(root, writer, 0);
+        }
     }
+    
+    private static void printTreeStructure(TreeNode node, FileWriter writer, int depth) throws IOException {
+        if (node == null) return;
+        
+        // Add indentation based on depth
+        for (int i = 0; i < depth; i++) {
+            writer.write("  ");
+        }
+        
+        // Print current node
+        writer.write("Node " + node.getValue() + "\n");
+        
+        // Print all children
+        for (TreeNode child : node.getChildren()) {
+            printTreeStructure(child, writer, depth + 1);
+        }
+    }
+    
     private static Set<Node> convertTreeNodesToNodes(Set<TreeNode> treeNodes) {
         Set<Node> nodes = new HashSet<>();
         for (TreeNode treeNode : treeNodes) {

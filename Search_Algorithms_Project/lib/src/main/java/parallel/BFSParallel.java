@@ -76,7 +76,6 @@ public class BFSParallel implements Callable<SearchResult> {
 
         try {
             while (!queue.isEmpty()) {
-                // Faza de calcul
                 long computeStart = System.nanoTime();
                 Node currentNode = queue.poll();
                 if (currentNode == null) continue;
@@ -85,9 +84,8 @@ public class BFSParallel implements Callable<SearchResult> {
                 processNeighbors(currentNode);
                 computationTime += System.nanoTime() - computeStart;
                 
-                // Faza de comunicare
                 long commStart = System.nanoTime();
-                // Sincronizare implicită
+                
                 communicationTime += System.nanoTime() - commStart;
             }
         } catch (Exception e) {

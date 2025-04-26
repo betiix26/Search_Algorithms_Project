@@ -89,7 +89,7 @@ public class DFSSequential {
         }
     }
     
-    public static SearchResult graphDFSWithMetrics(List<List<Integer>> adj, int s) {
+    public static SearchResult graphDFSWithMetrics(List<List<Integer>> adj, int s, int nodes) {
         long startTime = System.nanoTime();
         long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         int nodesProcessed = 0;
@@ -99,7 +99,7 @@ public class DFSSequential {
                 new SearchMetrics(0, 0, 0, 0, "DFS", false, 0));
         }
 
-        Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+        Set<Node> visitedNodes = new HashSet<>(); 
         boolean[] visited = new boolean[adj.size()];
         Deque<Integer> stack = new ArrayDeque<>();
 
@@ -111,7 +111,7 @@ public class DFSSequential {
             if (!visited[u]) {
                 visited[u] = true;
                 nodesProcessed++;
-                visitedNodes.add(new Node(u)); // Creăm obiect Node din integer
+                visitedNodes.add(new Node(u)); 
                 
                 for (int i = adj.get(u).size() - 1; i >= 0; i--) {
                     int v = adj.get(u).get(i);

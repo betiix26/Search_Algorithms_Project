@@ -86,7 +86,7 @@ public class BFSSequential {
         }
     }
     
-    public static SearchResult graphBFSWithMetrics(List<List<Integer>> adj, int s) {
+    public static SearchResult graphBFSWithMetrics(List<List<Integer>> adj, int s, int nodes) {
         long startTime = System.nanoTime();
         long memoryBefore = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
         int nodesProcessed = 0;
@@ -96,13 +96,13 @@ public class BFSSequential {
                 new SearchMetrics(0, 0, 0, 0, "BFS", false, 0));
         }
 
-        Set<Node> visitedNodes = new HashSet<>(); // Schimbat din Set<Integer> în Set<Node>
+        Set<Node> visitedNodes = new HashSet<>(); 
         boolean[] visited = new boolean[adj.size()];
         Queue<Integer> queue = new LinkedList<>();
 
         visited[s] = true;
         queue.add(s);
-        visitedNodes.add(new Node(s)); // Creăm obiect Node din integer
+        visitedNodes.add(new Node(s));
 
         while (!queue.isEmpty()) {
             int u = queue.poll();
@@ -112,7 +112,7 @@ public class BFSSequential {
                 if (!visited[v]) {
                     visited[v] = true;
                     queue.add(v);
-                    visitedNodes.add(new Node(v)); // Creăm obiect Node
+                    visitedNodes.add(new Node(v)); 
                 }
             }
         }

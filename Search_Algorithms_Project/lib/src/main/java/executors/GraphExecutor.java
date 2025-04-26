@@ -28,6 +28,7 @@ public class GraphExecutor {
 		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated.");
 	}
 
+	
 	/**
 	 * Executes BFS sequentially on a graph and records execution time and memory
 	 * usage.
@@ -67,22 +68,31 @@ public class GraphExecutor {
 	 * @return Array of SearchResult objects [BFS result, DFS result]
 	 * @throws IOException If an error occurs during file reading
 	 */
-	public static SearchResult[] runSequentialMethodsWithMetrics(String fileName, int startNodeID) throws IOException {
+	public static SearchResult[] runSequentialMethodsWithMetrics(String fileName, int startNodeID, int nodeCount) throws IOException {
 	    List<List<Integer>> adj = GraphReader.readGraph(fileName);
+	    Graph graph = convertListToGraph(adj); 
 	    
-	    // Get metrics for both algorithms
-	    SearchResult bfsResult = BFSSequential.graphBFSWithMetrics(adj, startNodeID);
-	    SearchResult dfsResult = DFSSequential.graphDFSWithMetrics(adj, startNodeID);
+	    graph.printGraphToFile("output_graph.txt");
+
 	    
-	    // Print metrics
+	    SearchResult bfsResult = BFSSequential.graphBFSWithMetrics(adj, startNodeID, nodeCount);
+	    SearchResult dfsResult = DFSSequential.graphDFSWithMetrics(adj, startNodeID, nodeCount);
+	    
 	    bfsResult.getMetrics().printMetrics();
 	    dfsResult.getMetrics().printMetrics();
 	    
-	    // Compare results
 	    printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
+	    
+	    System.out.println("\n--- Sequential BFS Nodes ---");
+	    bfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
+	    
+	    System.out.println("\n--- Sequential DFS Nodes ---");
+	    dfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
 	    
 	    return new SearchResult[]{bfsResult, dfsResult};
 	}
+
+
 	 
 	 /**
 	  * Executes DFS sequentially on a graph and records execution time and memory usage.
@@ -122,32 +132,33 @@ public class GraphExecutor {
 	  * @param nodeCount   Number of nodes in the graph
 	  */
 	 public static void runSequentialMethods(String fileName, int startNodeID, int nodeCount) {
-	     // Traditional measurement
-	     List<Double> bfsSequentialTimes = new ArrayList<>();
-	     List<Double> dfsSequentialTimes = new ArrayList<>();
-	     List<Double> bfsMemoryUsage = new ArrayList<>();
-	     List<Double> dfsMemoryUsage = new ArrayList<>();
-	     
-	     try {
-	         // Run with basic measurement
-	         runSequentialBFS(fileName, startNodeID, bfsSequentialTimes, bfsMemoryUsage);
-	         runSequentialDFS(fileName, startNodeID, dfsSequentialTimes, dfsMemoryUsage);
-	         
-	         // Run with advanced metrics
-	         SearchResult[] metricsResults = runSequentialMethodsWithMetrics(fileName, startNodeID);
-	         
-	         // Save both sets of results
-	         ExcelDataRecorder.writeData("SequentialExecutionTimes.xlsx", bfsSequentialTimes, dfsSequentialTimes,
-	                 nodeCount, true, false);
-	         ExcelDataRecorder.writeData("SequentialMemoryUsage.xlsx", bfsMemoryUsage, dfsMemoryUsage, 
-	                 nodeCount, false, false);
-	         ExcelDataRecorder.writeMetricsData("SequentialDetailedMetrics.xlsx", metricsResults, nodeCount);
-	         
-	     } catch (Exception e) {
-	         System.err.println("Error in sequential execution: " + e.getMessage());
-	         e.printStackTrace();
-	     }
-	 }
+		    // Traditional measurement
+		    List<Double> bfsSequentialTimes = new ArrayList<>();
+		    List<Double> dfsSequentialTimes = new ArrayList<>();
+		    List<Double> bfsMemoryUsage = new ArrayList<>();
+		    List<Double> dfsMemoryUsage = new ArrayList<>();
+		    
+		    try {
+		        // Run with basic measurement
+		        runSequentialBFS(fileName, startNodeID, bfsSequentialTimes, bfsMemoryUsage);
+		        runSequentialDFS(fileName, startNodeID, dfsSequentialTimes, dfsMemoryUsage);
+		        
+		        // Run with advanced metrics and nodes
+		        SearchResult[] metricsResults = runSequentialMethodsWithMetrics(fileName, startNodeID, nodeCount);
+		        
+		        // Save both sets of results
+		        ExcelDataRecorder.writeData("SequentialExecutionTimes.xlsx", bfsSequentialTimes, dfsSequentialTimes,
+		                nodeCount, true, false);
+		        ExcelDataRecorder.writeData("SequentialMemoryUsage.xlsx", bfsMemoryUsage, dfsMemoryUsage, 
+		                nodeCount, false, false);
+		        ExcelDataRecorder.writeMetricsData("SequentialDetailedMetrics.xlsx", metricsResults, nodeCount);
+		        
+		    } catch (Exception e) {
+		        System.err.println("Error in sequential execution: " + e.getMessage());
+		        e.printStackTrace();
+		    }
+		}
+
 
 	/**
 	 * Runs BFS and DFS in parallel using an ExecutorService.
@@ -155,31 +166,65 @@ public class GraphExecutor {
 	 * @param fileName    Path to the graph file.
 	 * @param startNodeID The starting node ID.
 	 */
-	public static SearchResult[] runParallelMethods(String fileName, int startNodeID) throws Exception {
-        List<List<Integer>> adj = GraphReader.readGraph(fileName);
-        Graph graph = convertListToGraph(adj);
-        Node startNode = new Node(startNodeID);
+	 public static SearchResult[] runParallelMethods(String fileName, int startNodeID) throws Exception {
+		    List<List<Integer>> adj = GraphReader.readGraph(fileName);
+		    Graph graph = convertListToGraph(adj);
+		    Node startNode = new Node(startNodeID);
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        
-        Future<SearchResult> bfsFuture = executor.submit(new BFSParallel(graph, startNode));
-        Future<SearchResult> dfsFuture = executor.submit(new DFSParallel(graph, startNode));
-        
-        executor.shutdown();
-        executor.awaitTermination(1, TimeUnit.HOURS);
-        
-        SearchResult bfsResult = bfsFuture.get();
-        SearchResult dfsResult = dfsFuture.get();
-        
-        // Print results
-        bfsResult.getMetrics().printMetrics();
-        dfsResult.getMetrics().printMetrics();
-        
-        // Compare results
-        printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
-        
-        return new SearchResult[]{bfsResult, dfsResult};
-    }
+		    ExecutorService executor = Executors.newFixedThreadPool(2);
+
+		    // === BFS MEMORY + TIME START ===
+		    MemoryMXBean memoryBean = ManagementFactory.getMemoryMXBean();
+		    MemoryUsage beforeBFSMem = memoryBean.getHeapMemoryUsage();
+		    long startBfsTime = System.nanoTime();
+
+		    Future<SearchResult> bfsFuture = executor.submit(new BFSParallel(graph, startNode));
+
+		    // === DFS MEMORY + TIME START ===
+		    MemoryUsage beforeDFSMem = memoryBean.getHeapMemoryUsage();
+		    long startDfsTime = System.nanoTime();
+
+		    Future<SearchResult> dfsFuture = executor.submit(new DFSParallel(graph, startNode));
+
+		    executor.shutdown();
+		    executor.awaitTermination(1, TimeUnit.HOURS);
+
+		    // === BFS MEMORY + TIME END ===
+		    SearchResult bfsResult = bfsFuture.get();
+		    long endBfsTime = System.nanoTime();
+		    MemoryUsage afterBFSMem = memoryBean.getHeapMemoryUsage();
+		    long bfsMemoryUsed = afterBFSMem.getUsed() - beforeBFSMem.getUsed();
+
+		    // === DFS MEMORY + TIME END ===
+		    SearchResult dfsResult = dfsFuture.get();
+		    long endDfsTime = System.nanoTime();
+		    MemoryUsage afterDFSMem = memoryBean.getHeapMemoryUsage();
+		    long dfsMemoryUsed = afterDFSMem.getUsed() - beforeDFSMem.getUsed();
+
+		    // === PRINT BFS INFO ===
+		    System.out.println("\n--- Parallel BFS Metrics ---");
+		    System.out.println("Memory usage (bytes): " + bfsMemoryUsed);
+		    printExecutionTime(startBfsTime, endBfsTime);
+		    System.out.println("Graph Structure (BFS):");
+		    bfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
+
+
+		    // === PRINT DFS INFO ===
+		    System.out.println("\n--- Parallel DFS Metrics ---");
+		    System.out.println("Memory usage (bytes): " + dfsMemoryUsed);
+		    printExecutionTime(startDfsTime, endDfsTime);
+		    System.out.println("Graph Structure (DFS):");
+		    dfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
+
+
+		    // === PRINT METRICS & COMPARISON ===
+		    bfsResult.getMetrics().printMetrics();
+		    dfsResult.getMetrics().printMetrics();
+		    printComparison(bfsResult.getMetrics(), dfsResult.getMetrics());
+
+		    return new SearchResult[]{bfsResult, dfsResult};
+		}
+
 
 	private static void printComparison(SearchMetrics bfs, SearchMetrics dfs) {
 	    System.out.println("\n===== BFS vs DFS Comparison =====");
@@ -208,6 +253,15 @@ public class GraphExecutor {
 		System.out.println();
 	}
 
+	public static void printBfsAndDfsResults(Graph graph, SearchResult bfsResult, SearchResult dfsResult) {
+	    System.out.println("\n--- BFS Nodes ---");
+	    bfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
+
+	    System.out.println("\n--- DFS Nodes ---");
+	    dfsResult.getVisitedNodes().forEach(node -> printNodeAndNeighbors(graph, node));
+	}
+
+	
 	private static void printExecutionTime(long startTime, long endTime) {
 		double durationInSeconds = (endTime - startTime) / 1_000_000_000.0;
 		System.out.printf("Execution time: %.9f seconds.\n", durationInSeconds);

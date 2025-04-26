@@ -1,0 +1,10 @@
+Visited nodes and their children (9):
+Node 0 -> 584 
+Node 584 -> 794 
+Node 794 -> 190 
+Node 190 -> 513 
+Node 513 -> 496 
+Node 496 -> 607 
+Node 607 -> 459 
+Node 459 -> 59 
+Node 59 -> 
